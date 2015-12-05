@@ -26,6 +26,27 @@
 
 <p>Send any data to any Viewholder without creating custom RecyclerView Adapters.</p>
 
+<h2>
+<a id="add-to-your-project" class="anchor" href="#add-to-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add to your project</h2>
+
+<p>Add it in your root build.gradle at the end of repositories:</p>
+
+<pre><code>    allprojects {
+        repositories {
+            ...
+            maven { url "https://jitpack.io" }
+        }
+    }
+</code></pre>
+
+<p>Add the dependency</p>
+
+<pre><code>    dependencies {
+        compile 'com.github.User:Repo:Tag'
+    }
+
+</code></pre>
+
 <p>Simple Usage using ViewHolder which extends  SnapViewHolder.</p>
 
 <pre><code>SnapAdapter&lt;SimpleProduct,ViewHolderProduct&gt;  adapterRecycler = new SnapAdapter&lt;&gt;(getContext(),
