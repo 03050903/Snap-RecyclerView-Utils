@@ -22,6 +22,8 @@
       <h1>
 <a id="snap-recyclerview-utils" class="anchor" href="#snap-recyclerview-utils" aria-hidden="true"><span class="octicon octicon-link"></span></a>Snap RecyclerView Utils</h1>
 
+<p><a href="https://android-arsenal.com/details/1/2884"><img src="https://img.shields.io/badge/Android%20Arsenal-Snap--RecyclerView--Utils-green.svg?style=true" alt="Android Arsenal"></a></p>
+
 <p>Simple Library to create RecyclerView Adapters and Viewholder in a snap.</p>
 
 <p>Send any data to any Viewholder without creating custom RecyclerView Adapters.</p>
@@ -29,102 +31,100 @@
 <h2>
 <a id="add-to-your-project" class="anchor" href="#add-to-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add to your project</h2>
 
-<p>Add it in your root build.gradle at the end of repositories:</p>
+<p><a href="https://jitpack.io/#prashantsolanki3/Snap-RecyclerView-Utils"><img src="https://img.shields.io/github/release/prashantsolanki3/Snap-RecyclerView-Utils.svg?label=jitpack" alt="Release"></a></p>
 
-<pre><code>    allprojects {
-        repositories {
-            ...
-            maven { url "https://jitpack.io" }
-        }
+<p>Add JitPack to repositories in your project's root <code>build.gradle</code> file:</p>
+
+<div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">allprojects</span> {
+    repositories {
+        <span class="pl-k">..</span>.
+        maven { url <span class="pl-s"><span class="pl-pds">"</span>https://jitpack.io<span class="pl-pds">"</span></span> }
     }
-</code></pre>
+}</pre></div>
 
-<p>Add the dependency</p>
+<p>Add the dependency to your module's <code>build.gradle</code> file:</p>
 
-<pre><code>    dependencies {
-        compile 'com.github.User:Repo:Tag'
-    }
+<div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">dependencies</span> {
+    <span class="pl-k">..</span>.
+    compile <span class="pl-s"><span class="pl-pds">'</span>com.github.prashantsolanki3:Snap-RecyclerView-Utils:v1.1<span class="pl-pds">'</span></span>
+}</pre></div>
 
-</code></pre>
+<hr>
 
-<p>Simple Usage using ViewHolder which extends  SnapViewHolder.</p>
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
 
-<pre><code>SnapAdapter&lt;SimpleProduct,ViewHolderProduct&gt;  adapterRecycler = new SnapAdapter&lt;&gt;(getContext(),
-                SimpleProduct.class, //Model Class containing data
-                R.layout.item_recycler_product, // Item Layout
-                ViewHolderProduct.class); // ViewHolder
+<p>Simple usage using <code>ViewHolder</code> which extends <code>SnapViewHolder</code>.</p>
 
-recyclerView.setAdapter(adapterRecycler);
+<div class="highlight highlight-source-java"><pre><span class="pl-k">SnapAdapter&lt;<span class="pl-smi">SimpleProduct</span>,<span class="pl-smi">ViewHolderProduct</span>&gt;</span>  adapterRecycler <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">SnapAdapter&lt;&gt;</span>(getContext(),
+                <span class="pl-smi">SimpleProduct</span><span class="pl-k">.</span>class, <span class="pl-c">//Model Class containing data</span>
+                <span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>item_recycler_product, <span class="pl-c">// Item Layout</span>
+                <span class="pl-smi">ViewHolderProduct</span><span class="pl-k">.</span>class); <span class="pl-c">// ViewHolder</span>
 
-//Add items to RecyclerView
-adapterRecycler.addItems(new ArrayList&lt;SimpleProduct&gt;());
+recyclerView<span class="pl-k">.</span>setAdapter(adapterRecycler);
 
-</code></pre>
+<span class="pl-c">//Add items to RecyclerView</span>
+adapterRecycler<span class="pl-k">.</span>addItems(<span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">SimpleProduct</span>&gt;</span>());</pre></div>
 
-<p>ViewHolderProduct class which extends SnapViewHolder</p>
+<p><code>ViewHolderProduct</code> class which extends <code>SnapViewHolder</code></p>
 
 <ul>
-<li>Overrides 2 Methods: setData and animateViewHolder.</li>
+<li>Overrides 2 methods: <code>setData()</code> and <code>animateViewHolder()</code>.</li>
 </ul>
 
-<pre><code>
-public class ViewHolderProduct extends SnapViewHolder&lt;SimpleProduct&gt; {
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ViewHolderProduct</span> <span class="pl-k">extends</span> <span class="pl-e">SnapViewHolder&lt;<span class="pl-smi">SimpleProduct</span>&gt;</span> {
 
-    TextView title;
-    ImageView thumbnail;
-    SimpleProduct simpleProduct;
+    <span class="pl-k">final</span> <span class="pl-smi">TextView</span> title;
+    <span class="pl-k">final</span> <span class="pl-smi">ImageView</span> thumbnail;
+    <span class="pl-k">final</span> <span class="pl-smi">SimpleProduct</span> simpleProduct;
 
-    public VhProductList(View itemView, Context context) {
-        super(itemView, context);
+    <span class="pl-k">public</span> <span class="pl-en">VhProductList</span>(<span class="pl-smi">View</span> <span class="pl-v">itemView</span>, <span class="pl-smi">Context</span> <span class="pl-v">context</span>) {
+        <span class="pl-v">super</span>(itemView, context);
         initViews();
     }
 
-    private void initViews(){
-        title = (TextView) itemView.findViewById(R.id.product_title);
-        thumbnail= (ImageView) itemView.findViewById(R.id.product_image);
+    <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">initViews</span>() {
+        title <span class="pl-k">=</span> (<span class="pl-smi">TextView</span>) itemView<span class="pl-k">.</span>findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>product_title);
+        thumbnail<span class="pl-k">=</span> (<span class="pl-smi">ImageView</span>) itemView<span class="pl-k">.</span>findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>product_image);
     }
 
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setData</span>(<span class="pl-smi">SimpleProduct</span> <span class="pl-v">data</span>, <span class="pl-k">int</span> <span class="pl-v">pos</span>) {
+        <span class="pl-v">this</span><span class="pl-k">.</span>simpleProduct <span class="pl-k">=</span> data;
 
-    @Override
-    public void setData(SimpleProduct data, int pos) {
-        this.simpleProduct=data;
+        thumbnail<span class="pl-k">.</span>setImageDrawable(<span class="pl-c1">null</span>);
 
-        thumbnail.setImageDrawable(null);
+        title<span class="pl-k">.</span>setText(data<span class="pl-k">.</span>getTitle());
 
-        title.setText(data.getTitle());
-
-        Glide.with(getContext())
-                .load(data.getListImage())
+        <span class="pl-smi">Glide</span><span class="pl-k">.</span>with(getContext())
+                .load(data<span class="pl-k">.</span>getListImage())
                 .into(thumbnail);
 
     }
 
-    @Override
-    public void animateViewHolder(SnapViewHolder viewHolder, int position) {
-        //Apply Animations to ViewHolder.
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">animateViewHolder</span>(<span class="pl-smi">SnapViewHolder</span> <span class="pl-v">viewHolder</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>) {
+        <span class="pl-c">//Apply Animations to ViewHolder.</span>
 
-        AnimationSet set = new AnimationSet(true);
+        <span class="pl-smi">AnimationSet</span> set <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">AnimationSet</span>(<span class="pl-c1">true</span>);
 
-        if(position%3==0)
-            set.addAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.gp_slide_in_left));
-        else if(position%3==1)
-            set.addAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.gp_slide_in_right));
+        <span class="pl-k">if</span> (position <span class="pl-k">%</span> <span class="pl-c1">3</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>)
+            set<span class="pl-k">.</span>addAnimation(<span class="pl-smi">AnimationUtils</span><span class="pl-k">.</span>loadAnimation(getContext(), <span class="pl-smi">R</span><span class="pl-k">.</span>anim<span class="pl-k">.</span>gp_slide_in_left));
+        <span class="pl-k">else</span> <span class="pl-k">if</span> (position <span class="pl-k">%</span> <span class="pl-c1">3</span> <span class="pl-k">==</span> <span class="pl-c1">1</span>)
+            set<span class="pl-k">.</span>addAnimation(<span class="pl-smi">AnimationUtils</span><span class="pl-k">.</span>loadAnimation(getContext(), <span class="pl-smi">R</span><span class="pl-k">.</span>anim<span class="pl-k">.</span>gp_slide_in_right));
 
-        set.addAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.gp_slide_in_bottom));
+        set<span class="pl-k">.</span>addAnimation(<span class="pl-smi">AnimationUtils</span><span class="pl-k">.</span>loadAnimation(getContext(), <span class="pl-smi">R</span><span class="pl-k">.</span>anim<span class="pl-k">.</span>gp_slide_in_bottom));
 
-        viewHolder.itemView.startAnimation(set);
+        viewHolder<span class="pl-k">.</span>itemView<span class="pl-k">.</span>startAnimation(set);
     }
+}</pre></div>
 
-}
-
-</code></pre>
-
-<h1>
-<a id="if-your-viewholder-doesnt-extends-snapviewholder" class="anchor" href="#if-your-viewholder-doesnt-extends-snapviewholder" aria-hidden="true"><span class="octicon octicon-link"></span></a>If your Viewholder doesn't extends SnapViewHolder.</h1>
+<h3>
+<a id="if-your-viewholder-doesnt-extend-snapviewholder" class="anchor" href="#if-your-viewholder-doesnt-extend-snapviewholder" aria-hidden="true"><span class="octicon octicon-link"></span></a>If your <code>Viewholder</code> doesn't extend <code>SnapViewHolder</code>.</h3>
 
 <ul>
-<li>Override populateViewHolderItem method in SnapAdapter to setData.</li>
-<li>Optionally Override animateItems method in SnapAdaper to animate Items.</li>
+<li>Override <code>populateViewHolderItem()</code> method in <code>SnapAdapter</code> to <code>setData()</code>.</li>
+<li>Optionally override <code>animateItems()</code> method in <code>SnapAdaper</code> to animate Items.</li>
 </ul>
 
       <footer class="site-footer">
