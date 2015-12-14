@@ -26,7 +26,14 @@
 
 <p>Simple Library to create RecyclerView Adapters and Viewholder in a snap.</p>
 
-<p>Send any data to any Viewholder without creating custom RecyclerView Adapters.</p>
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Simple RecyclerView Adapter</li>
+<li>Multiple Layouts RecyclerView Adapter</li>
+<li>Endless Loader</li>
+</ul>
 
 <h2>
 <a id="add-to-your-project" class="anchor" href="#add-to-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add to your project</h2>
@@ -46,86 +53,56 @@
 
 <div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">dependencies</span> {
     <span class="pl-k">..</span>.
-    compile <span class="pl-s"><span class="pl-pds">'</span>com.github.prashantsolanki3:Snap-RecyclerView-Utils:v1.1<span class="pl-pds">'</span></span>
+    compile <span class="pl-s"><span class="pl-pds">'</span>com.github.prashantsolanki3:Snap-RecyclerView-Utils:v1.5<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <hr>
 
-<h1>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>Simple usage using <code>ViewHolder</code> which extends <code>SnapViewHolder</code>.</p>
+<h3>
+<a id="check-out-the-wiki" class="anchor" href="#check-out-the-wiki" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://github.com/prashantsolanki3/Snap-RecyclerView-Utils/wiki">Check out the wiki!</a>
+</h3>
 
-<div class="highlight highlight-source-java"><pre><span class="pl-k">SnapAdapter&lt;<span class="pl-smi">SimpleProduct</span>,<span class="pl-smi">ViewHolderProduct</span>&gt;</span>  adapterRecycler <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">SnapAdapter&lt;&gt;</span>(getContext(),
-                <span class="pl-smi">SimpleProduct</span><span class="pl-k">.</span>class, <span class="pl-c">//Model Class containing data</span>
-                <span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>item_recycler_product, <span class="pl-c">// Item Layout</span>
-                <span class="pl-smi">ViewHolderProduct</span><span class="pl-k">.</span>class); <span class="pl-c">// ViewHolder</span>
+<p>Make a <code>ViewHolder</code> which extends <code>SnapViewHolder</code>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">SnapAdapter&lt;<span class="pl-smi">SimpleProduct</span>, <span class="pl-smi">ViewHolderProduct</span>&gt;</span> adapterRecycler <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">SnapAdapter&lt;&gt;</span>(
+    getContext(), <span class="pl-c">//Context</span>
+    <span class="pl-smi">SimpleProduct</span><span class="pl-k">.</span>class, <span class="pl-c">//Model class, matching generic type</span>
+        <span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>item_recycler_product, <span class="pl-c">// Item Layout</span>
+        <span class="pl-smi">ViewHolderProduct</span><span class="pl-k">.</span>class); <span class="pl-c">// ViewHolder class, matching generic type</span>
 
 recyclerView<span class="pl-k">.</span>setAdapter(adapterRecycler);
 
 <span class="pl-c">//Add items to RecyclerView</span>
-adapterRecycler<span class="pl-k">.</span>addItems(<span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">SimpleProduct</span>&gt;</span>());</pre></div>
-
-<p><code>ViewHolderProduct</code> class which extends <code>SnapViewHolder</code></p>
-
-<ul>
-<li>Overrides 2 methods: <code>setData()</code> and <code>animateViewHolder()</code>.</li>
-</ul>
-
-<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ViewHolderProduct</span> <span class="pl-k">extends</span> <span class="pl-e">SnapViewHolder&lt;<span class="pl-smi">SimpleProduct</span>&gt;</span> {
-
-    <span class="pl-k">final</span> <span class="pl-smi">TextView</span> title;
-    <span class="pl-k">final</span> <span class="pl-smi">ImageView</span> thumbnail;
-    <span class="pl-k">final</span> <span class="pl-smi">SimpleProduct</span> simpleProduct;
-
-    <span class="pl-k">public</span> <span class="pl-en">VhProductList</span>(<span class="pl-smi">View</span> <span class="pl-v">itemView</span>, <span class="pl-smi">Context</span> <span class="pl-v">context</span>) {
-        <span class="pl-v">super</span>(itemView, context);
-        initViews();
-    }
-
-    <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">initViews</span>() {
-        title <span class="pl-k">=</span> (<span class="pl-smi">TextView</span>) itemView<span class="pl-k">.</span>findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>product_title);
-        thumbnail<span class="pl-k">=</span> (<span class="pl-smi">ImageView</span>) itemView<span class="pl-k">.</span>findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>product_image);
-    }
-
-    <span class="pl-k">@Override</span>
-    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setData</span>(<span class="pl-smi">SimpleProduct</span> <span class="pl-v">data</span>, <span class="pl-k">int</span> <span class="pl-v">pos</span>) {
-        <span class="pl-v">this</span><span class="pl-k">.</span>simpleProduct <span class="pl-k">=</span> data;
-
-        thumbnail<span class="pl-k">.</span>setImageDrawable(<span class="pl-c1">null</span>);
-
-        title<span class="pl-k">.</span>setText(data<span class="pl-k">.</span>getTitle());
-
-        <span class="pl-smi">Glide</span><span class="pl-k">.</span>with(getContext())
-                .load(data<span class="pl-k">.</span>getListImage())
-                .into(thumbnail);
-
-    }
-
-    <span class="pl-k">@Override</span>
-    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">animateViewHolder</span>(<span class="pl-smi">SnapViewHolder</span> <span class="pl-v">viewHolder</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>) {
-        <span class="pl-c">//Apply Animations to ViewHolder.</span>
-
-        <span class="pl-smi">AnimationSet</span> set <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">AnimationSet</span>(<span class="pl-c1">true</span>);
-
-        <span class="pl-k">if</span> (position <span class="pl-k">%</span> <span class="pl-c1">3</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>)
-            set<span class="pl-k">.</span>addAnimation(<span class="pl-smi">AnimationUtils</span><span class="pl-k">.</span>loadAnimation(getContext(), <span class="pl-smi">R</span><span class="pl-k">.</span>anim<span class="pl-k">.</span>gp_slide_in_left));
-        <span class="pl-k">else</span> <span class="pl-k">if</span> (position <span class="pl-k">%</span> <span class="pl-c1">3</span> <span class="pl-k">==</span> <span class="pl-c1">1</span>)
-            set<span class="pl-k">.</span>addAnimation(<span class="pl-smi">AnimationUtils</span><span class="pl-k">.</span>loadAnimation(getContext(), <span class="pl-smi">R</span><span class="pl-k">.</span>anim<span class="pl-k">.</span>gp_slide_in_right));
-
-        set<span class="pl-k">.</span>addAnimation(<span class="pl-smi">AnimationUtils</span><span class="pl-k">.</span>loadAnimation(getContext(), <span class="pl-smi">R</span><span class="pl-k">.</span>anim<span class="pl-k">.</span>gp_slide_in_bottom));
-
-        viewHolder<span class="pl-k">.</span>itemView<span class="pl-k">.</span>startAnimation(set);
-    }
-}</pre></div>
+adapterRecycler<span class="pl-k">.</span>addAll(<span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">SimpleProduct</span>&gt;</span>());</pre></div>
 
 <h3>
-<a id="if-your-viewholder-doesnt-extend-snapviewholder" class="anchor" href="#if-your-viewholder-doesnt-extend-snapviewholder" aria-hidden="true"><span class="octicon octicon-link"></span></a>If your <code>Viewholder</code> doesn't extend <code>SnapViewHolder</code>.</h3>
+<a id="yeah-thats-all" class="anchor" href="#yeah-thats-all" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yeah That's All!</h3>
 
-<ul>
-<li>Override <code>populateViewHolderItem()</code> method in <code>SnapAdapter</code> to <code>setData()</code>.</li>
-<li>Optionally override <code>animateItems()</code> method in <code>SnapAdaper</code> to animate Items.</li>
-</ul>
+<hr>
+
+<h2>
+<a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
+
+<p>Contribute by creating issues (tagged enhancement, bugs) in the repo or create a pull request.</p>
+
+<h2>
+<a id="using-snap-recyclerview-utils" class="anchor" href="#using-snap-recyclerview-utils" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Snap RecyclerView Utils?</h2>
+
+<p>If you are using Snap RecyclerView Utils in your app and would like to be listed here, please let us know opening a new issue!</p>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
+
+<p>Copyright 2015 Prashant Solanki</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
+
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/prashantsolanki3/Snap-RecyclerView-Utils">Snap RecyclerView Utils</a> is maintained by <a href="https://github.com/prashantsolanki3">prashantsolanki3</a>.</span>
